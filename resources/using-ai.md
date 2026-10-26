@@ -11,12 +11,14 @@
 XX老师的建议：要用能在后台处理数据、直接跑回归的模型，如 GPT、Claude；只能问答的工具适合扫盲。
 ChatGPT 的开通方法：问 Charlie 要组里的《ChatGPT 使用与订阅教程》。
 
-## 二　怎么把这个仓库交给 AI
+## 二　怎么交给 AI
 
-- **能读 GitHub 的 AI**：直接发这句话：
-  > 「请读我的 GitHub 仓库 https://github.com/【你的用户名】/【仓库名】 ，先读 AGENTS.md，按里面的规则带我做。」
-- **打不开链接的 AI**：在仓库页面点绿色的 Code → Download ZIP，解压后把 `AGENTS.md`、`PROGRESS.md`、`workflow/` 里的文件上传给它，再发同一句话。
-- **每次开新对话**都这样做。AI 会先读 `PROGRESS.md`，接着上次的进度往下做。
+- **第一次**：发“请读 https://github.com/charlie-yus/Emergence 的 AGENTS.md，按里面的规则带我做。”AI 会问你进度放在哪（GitHub／本地文件夹／只用聊天），并告诉你下次怎么开始。
+- **以后每次**：按你 `PROGRESS.md` 里“下次怎么开始”那一行做。
+  - GitHub：网页点“接着做”，把复制的话发给 AI。
+  - 本地文件夹：在文件夹里打开 AI，说“读 AGENTS.md，接着做”。
+  - 只用聊天：发第一次那句话，再加上“我的进度见附件”，并上传 `PROGRESS.md`。
+- **打不开链接的 AI**：在 https://github.com/charlie-yus/Emergence 点绿色的 Code → Download ZIP，解压后把 `AGENTS.md`、`workflow/` 里的文件和你的 `PROGRESS.md` 上传给它。
 
 ## 三　怎么喂文献
 

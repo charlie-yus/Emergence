@@ -129,8 +129,8 @@
 
     const two = [...title], line1 = two.slice(0, 11).join(""), line2 = cut(two.slice(11).join(""), 11);
     return {
-      file: FILE, raw: md,
-      meta: { title, subtitle: rest.length ? `——${rest.join("——")}` : "", student: filled(info["姓名"]) || "第一次对话时 AI 会先问你", updated, route, code, confirmed, question: info["一句话研究问题"] || "" },
+      file: FILE, raw: md, local: local != null,
+      meta: { title, subtitle: rest.length ? `——${rest.join("——")}` : "", student: filled(info["姓名"]) || "第一次对话时 AI 会先问你", updated, route, code, confirmed, question: info["一句话研究问题"] || "", storage: filled(info["存放方式"]), nextStart: filled(info["下次怎么开始"]) },
       now: kv(S["现在"]),
       tasks, groups, cur, doneN,
       help: { on: helpOn, kv: helpKv.filter(([k]) => k !== "状态" && !k.startsWith("想问")), qs: helpQs },
@@ -144,8 +144,10 @@
   }
 
   const load = (src) => new Promise((ok, no) => document.body.appendChild(Object.assign(document.createElement("script"), { src, onload: ok, onerror: no })));
-  fetch(`${encodeURI(FILE)}?t=${Date.now()}`)
-    .then((r) => (r.ok ? r.text() : Promise.reject(r.status)))
+  // ?local=1：显示用“打开进度文件”选中的本地文件（内容暂存在本标签页的 sessionStorage）
+  let local = null;
+  if (new URLSearchParams(location.search).has("local")) try { local = sessionStorage.getItem("emergence-local"); } catch {}
+  (local != null ? Promise.resolve(local) : fetch(`${encodeURI(FILE)}?t=${Date.now()}`).then((r) => (r.ok ? r.text() : Promise.reject(r.status))))
     .then((md) => { window.STATUS = build(md); return load("flow.js"); })
     .then(() => load("app.js"))
     .catch((e) => {

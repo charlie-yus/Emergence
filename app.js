@@ -30,10 +30,14 @@ const mdUrl = new URL(encodeURI(S.file), location.href.split(/[?#]/)[0]).href;
 
 // 三个按钮复制的话：接着做（给 AI）、我卡住了（给 AI 填求助）、发给 Charlie（带进度页链接）
 const pageUrl = location.href.split("#")[0];
-const cont = `请读我的 GitHub 仓库 ${REPO || "（仓库链接）"} ，先读 AGENTS.md，再读 PROGRESS.md，按里面的规则带我做。`;
-const stuck = `我卡住了。请按仓库里 workflow/00-principles.md 第五节，帮我把 PROGRESS.md 的“求助”一节填好：卡在哪一步、原样报错、想要的结果、已经试过什么、想问 Charlie 的 1–3 个问题（尽量写成是/否题）。改完更新到仓库；你改不了仓库的话，给我完整的新版 PROGRESS.md。仓库：${REPO || "（仓库链接）"}`;
+const UP = "https://github.com/charlie-yus/Emergence";
+const own = REPO && !S.local && REPO.toLowerCase() !== UP.toLowerCase();   // 学生自己的 GitHub 进度页
+const cont = own ? `请读我的 GitHub 仓库 ${REPO} ，先读 AGENTS.md，再读 PROGRESS.md，按里面的规则带我做。`
+  : `请读 ${UP} 的 AGENTS.md，按里面的规则带我做。我的进度见附件 PROGRESS.md。`;
+const stuck = `我卡住了。请按 ${UP} 的 workflow/00-principles.md 第五节，帮我把 PROGRESS.md 的“求助”一节填好：卡在哪一步、原样报错、想要的结果、已经试过什么、想问 Charlie 的 1–3 个问题（尽量写成是/否题）。${own ? `改完更新到我的仓库 ${REPO}；你改不了仓库的话，给我完整的新版 PROGRESS.md。` : "然后给我完整的新版 PROGRESS.md，并写好发给 Charlie 的那段话。"}`;
 const helpText = [...S.help.kv.map(([k, v]) => `${k}：${v}`), ...(S.help.qs.length ? ["想问：", ...S.help.qs.map((q, i) => `${i + 1}. ${q}`)] : [])].join("\n");
-const toCharlie = S.help.on ? `Charlie，我的论文卡住了：\n${helpText}\n进度页：${pageUrl}` : `Charlie，我的论文有问题想问你，进度页：${pageUrl}`;
+const where = own ? `进度页：${pageUrl}` : "（附件：PROGRESS.md）";
+const toCharlie = S.help.on ? `Charlie，我的论文卡住了：\n${helpText}\n${where}` : `Charlie，我的论文有问题想问你。\n${where}`;
 const curName = S.cur ? `第 ${S.cur.id} 步 ${S.cur.title}` : "全部完成";
 
 $("#pillLinks").innerHTML = [["top", "流程"], ...SECTIONS].map(([id, n]) => `<a href="#${id}" data-s="${id}">${n}</a>`).join("");
@@ -70,10 +74,22 @@ $("#app").innerHTML = `
       <div class="legend"><span><i class="st done"></i>已落实</span><span><i class="st doing"></i>进行中</span><span><i class="st ask"></i>待确认</span></div></section>` : ""}
 
     ${has("info") ? `<section id="info" class="block"><div class="bh"><h2>关键信息</h2></div>
-      ${table(["", ""], [["路线", esc(S.meta.route)], ["研究问题", inl(S.meta.question) || "—"], ...S.info.map(([k, v]) => [esc(k), v ? inl(v) : "—"])])}</section>` : ""}
+      ${table(["", ""], [["路线", esc(S.meta.route)], ["研究问题", inl(S.meta.question) || "—"], ["存放方式", esc(S.meta.storage) || "—"], ["下次怎么开始", inl(S.meta.nextStart) || "—"], ...S.info.map(([k, v]) => [esc(k), v ? inl(v) : "—"])])}</section>` : ""}
   </div>
 </div>
-<footer><span>牛马一号 · ${md2(S.meta.updated)}更新</span><a href="${REPO ? `${REPO}/blob/main/${encodeURI(S.file)}` : encodeURI(S.file)}">PROGRESS.md</a></footer>`;
+<footer><span>牛马一号 · ${md2(S.meta.updated)}更新${S.local ? " · 本地文件" : ""}</span><span class="foot-links"><label class="open-file">打开进度文件<input type="file" id="openFile" accept=".md,.txt,text/markdown,text/plain" hidden /></label>${S.local ? "" : `<a href="${own ? `${REPO}/blob/main/${encodeURI(S.file)}` : encodeURI(S.file)}">PROGRESS.md</a>`}</span></footer>`;
+
+// 打开进度文件：选文件或拖进页面，暂存后用 ?local=1 重新显示（不上传，只在本标签页）
+function openLocal(file) {
+  if (!file) return;
+  file.text().then((t) => {
+    try { sessionStorage.setItem("emergence-local", t); } catch { alert("浏览器不允许暂存文件，换个浏览器试试"); return; }
+    location.href = `${location.pathname}?local=1`;
+  });
+}
+$("#openFile").onchange = (e) => openLocal(e.target.files[0]);
+addEventListener("dragover", (e) => e.preventDefault());
+addEventListener("drop", (e) => { e.preventDefault(); openLocal([...e.dataTransfer.files].find((f) => /\.(md|txt)$/i.test(f.name))); });
 
 // 各节横向切换：一次只显示一组
 const PANEL = {
