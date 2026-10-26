@@ -3,6 +3,8 @@
 学校论文的完整顺序：封面 → 声明 → 中文摘要 → 英文摘要 → 目录 → 引论 → 正文各章 → 结语 → 参考文献 → 致谢 → 附录。
 章节结构见各路线文件末尾。
 
+**下面的步骤、及格线和完成标志都是参考骨架，不是死规定。**由 AI 按题目和 TA 的情况判断：可以合并、拆分、跳过、调整顺序，也可以加步骤。
+
 ---
 
 ### 第 10 步　写初稿【AI 起草，人逐章核对】
@@ -28,6 +30,7 @@
 
 ### 第 12 步　按学校格式排版【人+AI】
 - 规则见 `resources/school-format.md`，**以学校原件为准**。
+- 两种做法任选其一：Word（先读素材仓库 `word-tools/layout-rules.md`），或 LaTeX（素材仓库 `skills/wuhan-college-thesis-latex/`，需要能运行代码的 AI 或会用 LaTeX）。素材仓库：https://github.com/charlie-yus/Emergence-assets
 - 【AI】逐条对照修改，并列出改了哪些地方。
   - 只能改文字的 AI，先给出修改清单，由 TA 在 Word 里改。
   - 能处理 Word 文件的 AI，可以直接改，但仍要列出清单。

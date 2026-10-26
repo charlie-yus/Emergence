@@ -1,6 +1,9 @@
 # 武汉学院本科毕业论文格式要点（文经管类）
 
-**以学校原件 `school-format-original.doc` 为准。**这里只列组里第一篇论文排版时核对过、也最容易出错的地方。
+**以学校原件 `school-format-original.doc` 为准。**
+
+- 用 LaTeX 排版：模板在素材仓库 https://github.com/charlie-yus/Emergence-assets 的 `skills/wuhan-college-thesis-latex/`，用法见那个仓库的 README。
+- 用 Word 排版：先读素材仓库的 `word-tools/layout-rules.md`。这里只列组里第一篇论文排版时核对过、也最容易出错的地方。
 
 ## 结构
 

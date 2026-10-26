@@ -104,6 +104,8 @@ Charlie 会根据大家遇到的问题更新流程，每次更新都写在 `CHAN
 | `resources/school-format.md`、`resources/school-format-original.doc` | 排版要求 |
 | `resources/faq.md` | 卡住了先看这里 |
 
+Skills、学校 LaTeX 模板、Word 排版工具在素材仓库：https://github.com/charlie-yus/Emergence-assets
+
 ---
 
 ## 给 Charlie：怎么发布更新

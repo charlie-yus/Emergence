@@ -12,10 +12,10 @@ const days = next ? Math.round((new Date(next.date) - today) / 864e5) : null;
 const ago = Math.max(0, Math.round((today - new Date(S.meta.updated)) / 864e5));
 const TASK = Object.fromEntries(S.tasks.map((t) => [t.id, t]));
 const STATE = { done: "已落实", doing: "进行中", ask: "待确认" };
-// 只显示有内容的栏目：没开始就没有“进展”，没求助就没有“求助”，没有确定日期就没有“节点”，没有意见就没有“意见”，路线没定就没有“信息”
+// 只显示有内容的栏目（求助只是按钮，不占栏目）：没开始就没有“进展”，没有确定日期就没有“节点”，没有意见就没有“意见”，路线没定就没有“信息”
 const DATES = S.milestones.filter((m) => isDate(m.date));
 const SECTIONS = [
-  S.days.length && ["log", "进展"], ["tasks", "完成"], S.help.on && ["help", "求助"],
+  S.days.length && ["log", "进展"], ["tasks", "完成"],
   DATES.length && ["dates", "节点"], S.feedback.length && ["feedback", "意见"], S.meta.code && ["info", "信息"],
 ].filter(Boolean);
 const has = (id) => SECTIONS.some(([x]) => x === id);
@@ -32,7 +32,8 @@ const mdUrl = new URL(encodeURI(S.file), location.href.split(/[?#]/)[0]).href;
 const pageUrl = location.href.split("#")[0];
 const cont = `请读我的 GitHub 仓库 ${REPO || "（仓库链接）"} ，先读 AGENTS.md，再读 PROGRESS.md，按里面的规则带我做。`;
 const stuck = `我卡住了。请按仓库里 workflow/00-principles.md 第五节，帮我把 PROGRESS.md 的“求助”一节填好：卡在哪一步、原样报错、想要的结果、已经试过什么、想问 Charlie 的 1–3 个问题（尽量写成是/否题）。改完更新到仓库；你改不了仓库的话，给我完整的新版 PROGRESS.md。仓库：${REPO || "（仓库链接）"}`;
-const toCharlie = `Charlie，我的论文卡住了，麻烦看一下：${pageUrl}#help`;
+const helpText = [...S.help.kv.map(([k, v]) => `${k}：${v}`), ...(S.help.qs.length ? ["想问：", ...S.help.qs.map((q, i) => `${i + 1}. ${q}`)] : [])].join("\n");
+const toCharlie = S.help.on ? `Charlie，我的论文卡住了：\n${helpText}\n进度页：${pageUrl}` : `Charlie，我的论文有问题想问你，进度页：${pageUrl}`;
 const curName = S.cur ? `第 ${S.cur.id} 步 ${S.cur.title}` : "全部完成";
 
 $("#pillLinks").innerHTML = [["top", "流程"], ...SECTIONS].map(([id, n]) => `<a href="#${id}" data-s="${id}">${n}</a>`).join("");
@@ -47,7 +48,6 @@ $("#app").innerHTML = `
   <div class="window">
     <div class="win-bar"><b>论文流程</b><span class="hint">点圆圈看细节</span>
       <div class="track"><span><i class="pulse"></i>当前<b>${esc(curName)}</b></span>${next ? `<span>下一站<b>${md2(next.date)} ${esc(next.label)}</b>${days >= 0 ? `<em>${days} 天</em>` : ""}</span>` : ""}</div></div>
-    ${S.help.on ? `<a class="help-bar" href="#help"><b>需要帮助</b>${esc((S.help.kv.find(([k]) => k === "卡在") || [, ""])[1])}</a>` : ""}
     <div class="flow">${window.flowSVG(S)}</div>
     ${window.flowList(S)}
     <div class="panel" id="panel"></div>
@@ -61,9 +61,6 @@ $("#app").innerHTML = `
 
     <section id="tasks" class="block"><div class="bh"><h2>完成情况 <em>${S.doneN} / ${S.tasks.length}</em></h2><div class="seg" data-tabs="tasks">${S.groups.map((g, i) => `<button aria-pressed="${g === S.cur?.group || (!S.cur && !i)}" data-k="${i}">${esc(g)}</button>`).join("")}</div></div>
       <div class="bar"><i style="width:${S.tasks.length ? (S.doneN / S.tasks.length) * 100 : 0}%"></i></div><div class="bp" id="p-tasks"></div></section>
-
-    ${has("help") ? `<section id="help" class="block help-on"><div class="bh"><h2>求助</h2><span class="hint">点上方“发给 Charlie”</span></div>
-      ${table(["", ""], S.help.kv.map(([k, v]) => [esc(k), inl(v)]))}${S.help.qs.length ? `<h3 class="dt">想问的问题</h3><ol class="playbook">${S.help.qs.map((q) => `<li>${inl(q)}</li>`).join("")}</ol>` : ""}</section>` : ""}
 
     ${has("dates") ? `<section id="dates" class="block"><div class="bh"><h2>时间节点</h2><span class="hint">学校系统的节点以系统为准</span></div>
       ${table(["日期", "事项", "状态"], DATES.map((m) => [md2(m.date) + (m === next ? `<br><span class="hint">还有 ${days} 天</span>` : ""), m === next ? `<b>${inl(m.label)}</b>` : inl(m.label), esc(m.status)]))}</section>` : ""}

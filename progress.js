@@ -58,7 +58,7 @@
     for (const l of S["步骤"] || []) {
       const h = l.match(/^###\s+(.+)/);
       if (h) { group = h[1].trim(); continue; }
-      const s = l.match(/^-\s*\[( |x|X)\]\s*(\d+)\s+([^【：:]+)(【[^】]*】)?\s*[：:]?\s*(.*)$/);
+      const s = l.match(/^-\s*\[( |x|X)\]\s*(\d+[a-z.\d]*)\s+([^【：:]+)(【[^】]*】)?\s*[：:]?\s*(.*)$/);
       if (s) {
         let note = s[5].trim(), date;
         const dm = note.match(/[（(]完成\s*(\d{1,2})-(\d{1,2})[）)]\s*$/);
@@ -83,7 +83,11 @@
     // 八个圆圈
     const names = NAMES[code] || NAMES[""];
     const stages = RANGES.map(([a, b], i) => {
-      const ts = tasks.filter((t) => +t.id >= a && +t.id <= b);
+      // 先按阶段标题归进圆圈（AI 可以增删、合并步骤），标题对不上的再按编号
+      const ALIAS = { 资料: "数据", 诊断: "分析" };
+      const stageOf = (t) => { const g = ALIAS[t.group] || t.group; const k = NAMES[""].indexOf(g);
+        if (k >= 0) return k; const n = parseFloat(t.id); return RANGES.findIndex(([x, y]) => n >= x && n < y + 1); };
+      const ts = tasks.filter((t) => stageOf(t) === i);
       const state = ts.length && ts.every((t) => t.done) ? "done" : ts.includes(cur) ? "now" : "todo";
       const whos = ts.map((t) => t.who);
       const role = !whos.length ? "collab" : whos.every((w) => w === "人") ? "human" : whos.every((w) => /^AI/.test(w)) ? "ai" : "collab";
@@ -94,7 +98,7 @@
       tags.sort((x, y) => "卡？待人".indexOf(x[0]) - "卡？待人".indexOf(y[0]));
       const headline = state === "now" ? `正在：${cur.title}` : state === "done" ? `已完成 ${ts.length} 步` : ts.length ? `待做：${ts.map((t) => t.title).join("、")}` : "等路线定了再展开";
       return {
-        n: NUM[i], name: names[i], date: state === "done" && lastDone ? md2(lastDone) : state === "now" ? "进行中" : `第 ${a}${b > a ? `–${b}` : ""} 步`,
+        n: NUM[i], name: names[i], date: state === "done" && lastDone ? md2(lastDone) : state === "now" ? "进行中" : ts.length ? `${ts.length} 步` : "",
         role, badge: { human: "本人", ai: "AI", collab: "协作" }[role], headline: cut(headline, 17), state,
         tags: tags.slice(0, 3), tasks: ts.map((t) => t.id), tools: [...new Set(ts.map((t) => t.who).filter(Boolean))],
       };

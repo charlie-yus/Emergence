@@ -37,7 +37,11 @@ ChatGPT 的开通方法：问 Charlie 要组里的《ChatGPT 使用与订阅教�
 9. **自我优化**：你刚才给的内容还有优化空间吗？请先站在答辩老师和审稿人的角度给自己提修改意见，再按意见修订一版。（重复 3–8 轮）
 10. **文章在哪下载**：《【标题】》（DOI：【DOI】）应该从哪个数据库下载全文？
 
-## 五　XX老师分享的写作 Skills
+## 五　Skills 在哪
+
+组里整理好的 Skills 放在素材仓库 https://github.com/charlie-yus/Emergence-assets 的 `skills/` 里。`skills/README.md` 有对照表：哪一步、哪条路线用哪个 Skill，以及怎么装、怎么给只能聊天的 AI 用。
+
+## 六　XX老师分享的写作 Skills（原始清单）
 
 XX老师在群里分享过一份 Skills 清单，都是 GitHub 上的公开项目，例如：
 
