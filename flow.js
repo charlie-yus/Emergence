@@ -75,7 +75,7 @@ window.flowSVG = function (S, sheet = false) {
   // 页眉页脚（只在整页模式下画）
   if (sheet) {
   const [, m, d] = S.meta.updated.split("-");
-  b += T(40, 44, F.title, { fs: 22, serif: 1 }) + T(40, 64, `${S.meta.student} · 指导老师：${S.meta.advisor}`, { fs: 11, fill: "#666" });
+  b += T(40, 44, F.title, { fs: 22, serif: 1 }) + T(40, 64, S.meta.student, { fs: 11, fill: "#666" });
   b += T(1083, 44, "牛马一号", { fs: 13, anchor: "end", serif: 1 }) + T(1083, 64, `更新于 ${S.meta.updated.slice(0, 4)} 年 ${+m} 月 ${+d} 日`, { fs: 11, anchor: "end", fill: "#666" });
   b += `<line x1="40" y1="726" x2="1083" y2="726" stroke="rgba(0,0,0,.12)"/>`;
   F.footer.forEach(([k, v], i) => { b += T(40, 744 + i * 20, k, { bold: 1 }) + T(40 + tw(k) + 12, 744 + i * 20, v, { fill: "#333" }); });

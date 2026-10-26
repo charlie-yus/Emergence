@@ -299,3 +299,7 @@ footer { max-width: 1200px; margin: 0 auto; padding: 22px 10px 40px; border-top:
 .task .n code { font-size: .9em; }
 /* 侧边目录只在正文两侧有空位时出现，避免压住卡片 */
 @media (max-width: 1339px) { .sidenav { display: none !important; } }
+/* 求助按钮：第一个按钮为主按钮（黑底）；发给 Charlie 在求助时变橙色 */
+.ai-strip nav > button:first-child { background: #000; color: #fff; border-color: #000; }
+.ai-strip #toCharlie:first-child { background: #c55a11; border-color: #c55a11; color: #fff; }
+@media (max-width: 799px) { .ai-strip nav { grid-template-columns: repeat(3, 1fr); } .ai-strip nav a { grid-column: span 3; } }

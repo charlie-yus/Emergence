@@ -46,7 +46,7 @@
       return s(y);
     };
     const filled = (v) => v && !/^（/.test(v) ? v : "";
-    const fullTitle = filled(info["题目"]) || "毕业论文";
+    const fullTitle = filled(info["题目"]) || "还没有题目";
     const [title, ...rest] = fullTitle.split("——");
     const route = info["路线"] || "未定";
     const code = (route.match(/^(A1|A2|B1|B2)/) || [""])[0];
@@ -126,7 +126,7 @@
     const two = [...title], line1 = two.slice(0, 11).join(""), line2 = cut(two.slice(11).join(""), 11);
     return {
       file: FILE, raw: md,
-      meta: { title, subtitle: rest.length ? `——${rest.join("——")}` : "", student: filled(info["姓名"]) || "同学", advisor: info["指导老师"] || "", updated, route, code, confirmed, question: info["一句话研究问题"] || "" },
+      meta: { title, subtitle: rest.length ? `——${rest.join("——")}` : "", student: filled(info["姓名"]) || "第一次对话时 AI 会先问你", updated, route, code, confirmed, question: info["一句话研究问题"] || "" },
       now: kv(S["现在"]),
       tasks, groups, cur, doneN,
       help: { on: helpOn, kv: helpKv.filter(([k]) => k !== "状态" && !k.startsWith("想问")), qs: helpQs },
