@@ -306,3 +306,7 @@ footer { max-width: 1200px; margin: 0 auto; padding: 22px 10px 40px; border-top:
 .update-bar { background: #e8eef4; color: #1f4e79; margin-top: 8px; }
 .foot-links { display: flex; gap: 16px; }
 .open-file { cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+#modal .steps { margin: 0; padding-left: 20px; list-style: decimal; display: grid; gap: 8px; font-size: 15px; color: var(--ink-2); }
+#modal .steps b { font-family: var(--sans); font-size: inherit; font-weight: 600; color: #000; }
+#modal .steps em { font-style: normal; color: #000; }
+#modal .copybox { font: inherit; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); resize: none; color: var(--ink-2); }

@@ -36,7 +36,8 @@ const cont = own ? `请读我的 GitHub 仓库 ${REPO} ，先读 AGENTS.md，再
   : `请读 ${UP} 的 AGENTS.md，按里面的规则带我做。我的进度见附件 PROGRESS.md。`;
 const stuck = `我卡住了。请按 ${UP} 的 workflow/00-principles.md 第五节，帮我把 PROGRESS.md 的“求助”一节填好：卡在哪一步、原样报错、想要的结果、已经试过什么、想问 Charlie 的 1–3 个问题（尽量写成是/否题）。${own ? `改完更新到我的仓库 ${REPO}；你改不了仓库的话，给我完整的新版 PROGRESS.md。` : "然后给我完整的新版 PROGRESS.md，并写好发给 Charlie 的那段话。"}`;
 const helpText = [...S.help.kv.map(([k, v]) => `${k}：${v}`), ...(S.help.qs.length ? ["想问：", ...S.help.qs.map((q, i) => `${i + 1}. ${q}`)] : [])].join("\n");
-const where = own ? `进度页：${pageUrl}` : "（附件：PROGRESS.md）";
+const mdName = `PROGRESS-${S.meta.student && !/AI 会/.test(S.meta.student) ? S.meta.student : "进度"}.md`;
+const where = own ? `进度页：${pageUrl}` : `（我接着把进度文件 ${mdName} 发给你）`;
 const toCharlie = S.help.on ? `Charlie，我的论文卡住了：\n${helpText}\n${where}` : `Charlie，我的论文有问题想问你。\n${where}`;
 const curName = S.cur ? `第 ${S.cur.id} 步 ${S.cur.title}` : "全部完成";
 
@@ -120,12 +121,42 @@ document.querySelectorAll(".stage, .fl-item").forEach((g) => {
 show(Math.max(0, S.flow.stages.findIndex((s) => s.state === "now")));
 
 // 按钮：复制对应的话，按钮上提示下一步把它发给谁
+// 复制：先用剪贴板接口，不行再用老办法；都不行返回 false
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; } catch {}
+  const ta = Object.assign(document.createElement("textarea"), { value: text });
+  ta.style.cssText = "position:fixed;opacity:0";
+  document.body.appendChild(ta); ta.select();
+  let ok = false; try { ok = document.execCommand("copy"); } catch {}
+  ta.remove(); return ok;
+}
 async function copy(btn, text, done) {
-  try { await navigator.clipboard.writeText(text); btn.textContent = done; } catch { btn.textContent = "复制失败"; }
+  if (await copyText(text)) btn.textContent = done;
+  else notice("请手动复制", ["全选下面的文字，复制后发出去。"], text);
 }
 $("#copyCont").onclick = (e) => copy(e.currentTarget, cont, "已复制，发给 AI");
 $("#copyStuck").onclick = (e) => copy(e.currentTarget, stuck, "已复制，发给 AI");
-$("#toCharlie").onclick = (e) => copy(e.currentTarget, toCharlie, "已复制，发给 Charlie");
+// 发给 Charlie：GitHub 页只复制文字（带链接）；其他情况同时下载 PROGRESS.md，并提醒文字和文件分两条发
+function notice(title, steps, text) {
+  $("#modal")?.remove();
+  document.body.insertAdjacentHTML("beforeend", `<div id="modal"><form><b>${title}</b><ol class="steps">${steps.map((x) => `<li>${x}</li>`).join("")}</ol>${text ? `<textarea class="copybox" readonly rows="7">${esc(text)}</textarea>` : ""}<div class="btns"><button class="btn">知道了</button></div></form></div>`);
+  $("#modal .copybox")?.addEventListener("focus", (e) => e.target.select());
+  $("#modal form").onsubmit = (e) => { e.preventDefault(); $("#modal").remove(); };
+  $("#modal .btn").focus();
+}
+$("#toCharlie").onclick = async (e) => {
+  const btn = e.currentTarget;
+  if (own) return copy(btn, toCharlie, "已复制，发给 Charlie");
+  if (!S.local) return notice("先打开你的进度文件", ["点页面最下面的 <em>打开进度文件</em>，选你自己的 PROGRESS.md。", "打开后再点 <em>发给 Charlie</em>。"]);
+  const copied = await copyText(toCharlie);
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(new Blob([S.raw], { type: "text/markdown" })), download: mdName });
+  a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  btn.textContent = "已复制并下载";
+  notice("分两条发给 Charlie", [
+    copied ? "求助的话<b>已复制</b>：在微信里粘贴，发给 Charlie。" : "复制下面框里的求助的话（点一下框会全选），在微信里发给 Charlie。",
+    `进度文件 <em>${esc(mdName)}</em> <b>已下载</b>（一般在“下载”文件夹）：把这个文件也发给 Charlie。`,
+  ], copied ? "" : toCharlie);
+};
 
 // 目录高亮
 const links = [...document.querySelectorAll("[data-s]")];

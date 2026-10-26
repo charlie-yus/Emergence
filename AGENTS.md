@@ -131,7 +131,9 @@ TA 的进度放在哪里，决定了下次怎么接着做、怎么把进度交�
 先换个方法再试一次。仍不行，就按 `workflow/00-principles.md` 的“求助”一节，填好 `PROGRESS.md` 的“求助”，再按存放方式交给 Charlie（Charlie 是组里已经写完一篇的同学）：
 
 - **GitHub**：让 TA 打开进度网页，点 **发给 Charlie**，把复制的话发给他。复制的话里已经带上求助内容和进度页链接。
-- **本地文件夹、只用聊天**：你按下面的格式写好一段话，让 TA 把这段话连同 `PROGRESS.md` 文件一起发给 Charlie。Charlie 打开 https://charlie-yus.github.io/Emergence/ ，点“打开进度文件”就能看到完整进度。
+- **本地文件夹、只用聊天**：你按下面的格式写好一段话，再给出最新的 `PROGRESS.md`（能生成文件就直接给文件）。然后提醒 TA：**微信里文字和文件要分两条发**，先粘贴这段话，再发 `PROGRESS.md` 文件。
+  - 也可以让 TA 打开 https://charlie-yus.github.io/Emergence/ ，点“打开进度文件”选自己的 `PROGRESS.md`，再点“发给 Charlie”：网页会复制这段话、下载进度文件，并提示分两条发。
+  - Charlie 收到文件后，在同一个网页点“打开进度文件”，就能看到完整进度。
 
 ```
 Charlie，我的论文卡住了：
@@ -141,5 +143,5 @@ Charlie，我的论文卡住了：
 已经试过：……
 想问：
 1. ……
-（附件：PROGRESS.md）
+（我接着把进度文件 PROGRESS.md 发给你）
 ```

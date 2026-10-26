@@ -41,7 +41,7 @@ AI 打不开链接时：在这个页面点绿色的 **Code → Download ZIP**，
 | 存放方式 | 适合谁 | 下次怎么开始 | 卡住时怎么找 Charlie |
 |---|---|---|---|
 | **GitHub** | 愿意注册 GitHub；想要一个随时可看的进度网页 | 打开进度网页点 **接着做**，把复制的话发给 AI | 进度网页点 **我卡住了**，再点 **发给 Charlie** |
-| **本地文件夹** | 用能读写电脑文件的 AI（Codex、Claude Code、Cursor） | 在 `论文/Emergence` 文件夹里打开 AI，说“读 AGENTS.md，接着做” | AI 写好求助的话，你把这段话连同 `PROGRESS.md` 文件发给 Charlie |
+| **本地文件夹** | 用能读写电脑文件的 AI（Codex、Claude Code、Cursor） | 在 `论文/Emergence` 文件夹里打开 AI，说“读 AGENTS.md，接着做” | 微信里分两条发：先发 AI 写好的求助的话，再发 `PROGRESS.md` 文件 |
 | **只用聊天** | 只用 ChatGPT 网页版、豆包等 | 新对话发：“请读 https://github.com/charlie-yus/Emergence 的 AGENTS.md，我的进度见附件”，并上传 `PROGRESS.md` | 同上 |
 
 选好以后，AI 会把“下次怎么开始”的原话写进你的 `PROGRESS.md`，并告诉你，**请存好**。
@@ -81,7 +81,7 @@ AI 打不开链接时：在这个页面点绿色的 **Code → Download ZIP**，
 2. 同一个问题试了三次还不行，或者遇到要人拍板的事，对 AI 说“我卡住了，帮我填求助”（GitHub 方式也可以直接点网页上的 **我卡住了**）。
 3. 发给 Charlie：
    - GitHub 方式：点 **发给 Charlie**，把复制的话发过去，里面带着你的进度页链接。
-   - 其他方式：把 AI 写好的那段话，连同 `PROGRESS.md` 文件一起发过去。
+   - 其他方式：微信里**分两条发**，先粘贴 AI 写好的那段话，再发 `PROGRESS.md` 文件。也可以打开 https://charlie-yus.github.io/Emergence/ ，点底部“打开进度文件”选你的 `PROGRESS.md`，再点 **发给 Charlie**：网页会复制那段话、下载进度文件，并提醒你分两条发。
 4. 收到 Charlie 的回复后，把回复原话发给 AI，它会记下来并关掉求助。
 
 常见问题先看 `resources/faq.md`。
