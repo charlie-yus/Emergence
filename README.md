@@ -6,12 +6,14 @@
 
 目标是**按时过学校的每个节点，顺利通过答辩**，不求最好。
 
+进度页做好之后长这样（示例）：https://charlie-yus.github.io/thesis-workflow/?file=流程/进度示例_B1.md
+
 ---
 
 ## 一　部署（约 10 分钟，只做一次）
 
 1. **注册 GitHub**：打开 https://github.com 注册账号。用户名会出现在网址里，建议用拼音。
-2. **复制模板**：打开本模板仓库，点右上角绿色按钮 **Use this template → Create a new repository**。
+2. **复制模板**：打开模板仓库 https://github.com/charlie-yus/thesis-workflow ，点右上角绿色按钮 **Use this template → Create a new repository**。
    - Repository name 填 `thesis`；
    - 选 **Public**；
    - 点 **Create repository**。
