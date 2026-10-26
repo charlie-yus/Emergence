@@ -1,8 +1,12 @@
 // 读仓库里的 PROGRESS.md，整理成网页用的 window.STATUS，再加载 flow.js 和 app.js。无需构建。
 // ?file=workflow/progress-example-B1.md 可预览其他进度文件（只允许仓库内的 .md）
 (function () {
-  const want = new URLSearchParams(location.search).get("file");
-  const FILE = want && /^[^/.][^:]*\.md$/.test(want) && !want.includes("..") ? want : "PROGRESS.md";
+  const q = new URLSearchParams(location.search);
+  const want = q.get("file");
+  // 上游首页（charlie-yus.github.io/Emergence/）没有指定文件时显示示例；组员自己的页面显示自己的 PROGRESS.md
+  const UPSTREAM_PAGE = /^charlie-yus\.github\.io$/i.test(location.hostname) && /^\/Emergence\/?$/i.test(location.pathname);
+  const DEMO = UPSTREAM_PAGE && !want && !q.has("local");
+  const FILE = want && /^[^/.][^:]*\.md$/.test(want) && !want.includes("..") ? want : DEMO ? "workflow/progress-example-B1.md" : "PROGRESS.md";
 
   // 八个圆圈 ← 第 0–17 步
   const RANGES = [[0, 1], [2, 2], [3, 4], [5, 7], [8, 9], [10, 11], [12, 15], [16, 17]];
@@ -129,7 +133,7 @@
 
     const two = [...title], line1 = two.slice(0, 11).join(""), line2 = cut(two.slice(11).join(""), 11);
     return {
-      file: FILE, raw: md, local: local != null,
+      file: FILE, raw: md, local: local != null, demo: DEMO,
       meta: { title, subtitle: rest.length ? `——${rest.join("——")}` : "", student: filled(info["姓名"]) || "第一次对话时 AI 会先问你", updated, route, code, confirmed, question: info["一句话研究问题"] || "", storage: filled(info["存放方式"]), nextStart: filled(info["下次怎么开始"]) },
       now: kv(S["现在"]),
       tasks, groups, cur, doneN,
@@ -143,7 +147,7 @@
     };
   }
 
-  const load = (src) => new Promise((ok, no) => document.body.appendChild(Object.assign(document.createElement("script"), { src, onload: ok, onerror: no })));
+  const load = (src) => new Promise((ok, no) => document.body.appendChild(Object.assign(document.createElement("script"), { src: `${src}?v=${Date.now()}`, onload: ok, onerror: no })));
   // ?local=1：显示用“打开进度文件”选中的本地文件（内容暂存在本标签页的 sessionStorage）
   let local = null;
   if (new URLSearchParams(location.search).has("local")) try { local = sessionStorage.getItem("emergence-local"); } catch {}

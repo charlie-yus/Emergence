@@ -45,6 +45,7 @@ $("#pillLinks").innerHTML = [["top", "流程"], ...SECTIONS].map(([id, n]) => `<
 
 $("#app").innerHTML = `
 <header class="hero" id="top"><div class="art"><img src="assets/art/hero.jpg" alt="" /></div><div class="hero-in">
+  ${S.demo ? '<p class="demo-note">这是示例进度。看同学的进度：点页面最下面的 <b>打开进度文件</b>，选他发来的 PROGRESS.md</p>' : ""}
   <p class="eyebrow"><span class="eb-brand">牛马一号<i></i></span>更新于${ago <= 0 ? "今天" : ` ${ago} 天前`}</p>
   <h1>论文进展<span>-由Agent实时更新</span></h1>
   <p class="sub"><span>${esc(S.meta.title)}</span><span>${esc(S.meta.subtitle)}</span><br />${esc(S.meta.student)}</p>

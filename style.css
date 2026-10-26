@@ -310,3 +310,5 @@ footer { max-width: 1200px; margin: 0 auto; padding: 22px 10px 40px; border-top:
 #modal .steps b { font-family: var(--sans); font-size: inherit; font-weight: 600; color: #000; }
 #modal .steps em { font-style: normal; color: #000; }
 #modal .copybox { font: inherit; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); resize: none; color: var(--ink-2); }
+.demo-note { display: inline-block; margin-bottom: 14px; padding: 6px 14px; border-radius: 99px; background: rgba(255,255,255,.85); font-size: 14px; color: var(--ink-2); }
+.demo-note b { color: #000; font-weight: 500; }
