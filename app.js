@@ -1,4 +1,4 @@
-// 进展页：首屏是流程图（核心），下面按日志的版式排进展、完成、求助、节点、意见、信息。内容全部来自 progress.js 整理的 进度.md
+// 进展页：首屏是流程图（核心），下面按日志的版式排进展、完成、求助、节点、意见、信息。内容全部来自 progress.js 整理的 PROGRESS.md
 const S = window.STATUS;
 const $ = (q) => document.querySelector(q);
 const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -12,7 +12,13 @@ const days = next ? Math.round((new Date(next.date) - today) / 864e5) : null;
 const ago = Math.max(0, Math.round((today - new Date(S.meta.updated)) / 864e5));
 const TASK = Object.fromEntries(S.tasks.map((t) => [t.id, t]));
 const STATE = { done: "已落实", doing: "进行中", ask: "待确认" };
-const SECTIONS = [["log", "进展"], ["tasks", "完成"], ["help", "求助"], ["dates", "节点"], ["feedback", "意见"], ["info", "信息"]];
+// 只显示有内容的栏目：没开始就没有“进展”，没求助就没有“求助”，没有确定日期就没有“节点”，没有意见就没有“意见”，路线没定就没有“信息”
+const DATES = S.milestones.filter((m) => isDate(m.date));
+const SECTIONS = [
+  S.days.length && ["log", "进展"], ["tasks", "完成"], S.help.on && ["help", "求助"],
+  DATES.length && ["dates", "节点"], S.feedback.length && ["feedback", "意见"], S.meta.code && ["info", "信息"],
+].filter(Boolean);
+const has = (id) => SECTIONS.some(([x]) => x === id);
 const taskRow = (t) => `<div class="task${t.done ? " done" : ""}"><span class="box">${t.done ? CHECK : ""}</span><span>${esc(t.id)}　${esc(t.title)}<span class="n">${t.who ? `【${esc(t.who)}】` : ""}${inl(t.note)}</span></span>${t.date ? `<time>${md2(t.date)}</time>` : "<span></span>"}</div>`;
 const table = (cols, rows) => `<div class="tbl"><table><tr>${cols.map((c) => `<th>${c}</th>`).join("")}</tr>${rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</table></div>`;
 
@@ -24,8 +30,8 @@ const mdUrl = new URL(encodeURI(S.file), location.href.split(/[?#]/)[0]).href;
 
 // 三个按钮复制的话：接着做（给 AI）、我卡住了（给 AI 填求助）、发给 Charlie（带进度页链接）
 const pageUrl = location.href.split("#")[0];
-const cont = `请读我的 GitHub 仓库 ${REPO || "（仓库链接）"} ，先读 AGENTS.md，再读 进度.md，按里面的规则带我做。`;
-const stuck = `我卡住了。请按仓库里 流程/00_总则.md 第五节，帮我把 进度.md 的“求助”一节填好：卡在哪一步、原样报错、想要的结果、已经试过什么、想问 Charlie 的 1–3 个问题（尽量写成是/否题）。改完更新到仓库；你改不了仓库的话，给我完整的新版 进度.md。仓库：${REPO || "（仓库链接）"}`;
+const cont = `请读我的 GitHub 仓库 ${REPO || "（仓库链接）"} ，先读 AGENTS.md，再读 PROGRESS.md，按里面的规则带我做。`;
+const stuck = `我卡住了。请按仓库里 workflow/00-principles.md 第五节，帮我把 PROGRESS.md 的“求助”一节填好：卡在哪一步、原样报错、想要的结果、已经试过什么、想问 Charlie 的 1–3 个问题（尽量写成是/否题）。改完更新到仓库；你改不了仓库的话，给我完整的新版 PROGRESS.md。仓库：${REPO || "（仓库链接）"}`;
 const toCharlie = `Charlie，我的论文卡住了，麻烦看一下：${pageUrl}#help`;
 const curName = S.cur ? `第 ${S.cur.id} 步 ${S.cur.title}` : "全部完成";
 
@@ -51,27 +57,26 @@ $("#app").innerHTML = `
 <nav class="sidenav" id="sidenav" aria-label="章节">${SECTIONS.map(([id, n]) => `<a href="#${id}" data-s="${id}"><i></i><span>${n}</span></a>`).join("")}</nav>
 <div class="grid body" id="body">
   <div class="main">
-    <section id="log" class="block"><div class="bh"><h2>每天进展</h2><div class="seg" data-tabs="log">${S.days.slice(0, 7).map((d, i) => `<button aria-pressed="${!i}" data-k="${i}">${md2(d.date)}</button>`).join("")}</div></div><div class="bp" id="p-log"></div></section>
+    ${has("log") ? `<section id="log" class="block"><div class="bh"><h2>每天进展</h2><div class="seg" data-tabs="log">${S.days.slice(0, 7).map((d, i) => `<button aria-pressed="${!i}" data-k="${i}">${md2(d.date)}</button>`).join("")}</div></div><div class="bp" id="p-log"></div></section>` : ""}
 
     <section id="tasks" class="block"><div class="bh"><h2>完成情况 <em>${S.doneN} / ${S.tasks.length}</em></h2><div class="seg" data-tabs="tasks">${S.groups.map((g, i) => `<button aria-pressed="${g === S.cur?.group || (!S.cur && !i)}" data-k="${i}">${esc(g)}</button>`).join("")}</div></div>
       <div class="bar"><i style="width:${S.tasks.length ? (S.doneN / S.tasks.length) * 100 : 0}%"></i></div><div class="bp" id="p-tasks"></div></section>
 
-    <section id="help" class="block${S.help.on ? " help-on" : ""}"><div class="bh"><h2>求助</h2><span class="hint">${S.help.on ? "点上方“发给 Charlie”" : "暂无"}</span></div>
-      ${S.help.on ? `${table(["", ""], S.help.kv.map(([k, v]) => [esc(k), inl(v)]))}${S.help.qs.length ? `<h3 class="dt">想问的问题</h3><ol class="playbook">${S.help.qs.map((q) => `<li>${inl(q)}</li>`).join("")}</ol>` : ""}`
-        : `<p class="hint">卡住时点上方“我卡住了”，把复制的话发给 AI，它会把求助填到这里；再点“发给 Charlie”。</p>`}</section>
+    ${has("help") ? `<section id="help" class="block help-on"><div class="bh"><h2>求助</h2><span class="hint">点上方“发给 Charlie”</span></div>
+      ${table(["", ""], S.help.kv.map(([k, v]) => [esc(k), inl(v)]))}${S.help.qs.length ? `<h3 class="dt">想问的问题</h3><ol class="playbook">${S.help.qs.map((q) => `<li>${inl(q)}</li>`).join("")}</ol>` : ""}</section>` : ""}
 
-    <section id="dates" class="block"><div class="bh"><h2>时间节点</h2><span class="hint">学校系统的节点以系统为准</span></div>
-      ${table(["日期", "事项", "状态"], S.milestones.map((m) => [isDate(m.date) ? md2(m.date) + (m === next ? `<br><span class="hint">还有 ${days} 天</span>` : "") : esc(m.date), m === next ? `<b>${inl(m.label)}</b>` : inl(m.label), esc(m.status)]))}</section>
+    ${has("dates") ? `<section id="dates" class="block"><div class="bh"><h2>时间节点</h2><span class="hint">学校系统的节点以系统为准</span></div>
+      ${table(["日期", "事项", "状态"], DATES.map((m) => [md2(m.date) + (m === next ? `<br><span class="hint">还有 ${days} 天</span>` : ""), m === next ? `<b>${inl(m.label)}</b>` : inl(m.label), esc(m.status)]))}</section>` : ""}
 
-    <section id="feedback" class="block"><div class="bh"><h2>老师意见</h2><span class="hint">记在 进度.md 的“老师意见”</span></div>
-      ${S.feedback.length ? `<div class="fbt">${table(["", "日期", "老师说", "落实"], S.feedback.map((f) => [`<span class="st ${f.state}" title="${STATE[f.state]}"></span>`, esc(f.date), inl(f.text), inl(f.reply)]))}</div>
-      <div class="legend"><span><i class="st done"></i>已落实</span><span><i class="st doing"></i>进行中</span><span><i class="st ask"></i>待确认</span></div>` : `<p class="hint">还没有老师意见。</p>`}</section>
+    ${has("feedback") ? `<section id="feedback" class="block"><div class="bh"><h2>老师意见</h2><span class="hint">记在 PROGRESS.md 的“老师意见”</span></div>
+      <div class="fbt">${table(["", "日期", "老师说", "落实"], S.feedback.map((f) => [`<span class="st ${f.state}" title="${STATE[f.state]}"></span>`, esc(f.date), inl(f.text), inl(f.reply)]))}</div>
+      <div class="legend"><span><i class="st done"></i>已落实</span><span><i class="st doing"></i>进行中</span><span><i class="st ask"></i>待确认</span></div></section>` : ""}
 
-    <section id="info" class="block"><div class="bh"><h2>关键信息</h2></div>
-      ${table(["", ""], [["路线", esc(S.meta.route)], ["研究问题", inl(S.meta.question) || "—"], ...S.info.map(([k, v]) => [esc(k), v ? inl(v) : "—"])])}</section>
+    ${has("info") ? `<section id="info" class="block"><div class="bh"><h2>关键信息</h2></div>
+      ${table(["", ""], [["路线", esc(S.meta.route)], ["研究问题", inl(S.meta.question) || "—"], ...S.info.map(([k, v]) => [esc(k), v ? inl(v) : "—"])])}</section>` : ""}
   </div>
 </div>
-<footer><span>牛马一号 · ${md2(S.meta.updated)}更新</span><a href="${REPO ? `${REPO}/blob/main/${encodeURI(S.file)}` : encodeURI(S.file)}">进度.md</a></footer>`;
+<footer><span>牛马一号 · ${md2(S.meta.updated)}更新</span><a href="${REPO ? `${REPO}/blob/main/${encodeURI(S.file)}` : encodeURI(S.file)}">PROGRESS.md</a></footer>`;
 
 // 各节横向切换：一次只显示一组
 const PANEL = {
@@ -93,7 +98,7 @@ function show(i) {
   const s = S.flow.stages[i];
   document.querySelectorAll(".stage, .fl-item").forEach((g) => g.classList.toggle("sel", +g.dataset.i === i));
   $("#panel").innerHTML = `<h4>${esc(s.n)} ${esc(s.name)}<span>${esc(s.date)} · ${esc(s.badge)}</span></h4>
-    <div class="ptasks">${s.tasks.map((id) => TASK[id]).filter(Boolean).map(taskRow).join("") || '<p class="hint">路线定了以后，AI 会把这一段的步骤写进 进度.md。</p>'}</div>`;
+    <div class="ptasks">${s.tasks.map((id) => TASK[id]).filter(Boolean).map(taskRow).join("") || '<p class="hint">路线定了以后，AI 会把这一段的步骤写进 PROGRESS.md。</p>'}</div>`;
 }
 document.querySelectorAll(".stage, .fl-item").forEach((g) => {
   g.onclick = () => show(+g.dataset.i);
@@ -116,14 +121,14 @@ const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersec
 // 侧边导航：到正文区才浮现
 new IntersectionObserver(([e]) => $("#sidenav").classList.toggle("show", e.isIntersecting), { rootMargin: "0px 0px -40% 0px" }).observe($("#body"));
 
-// 流程更新提示：本仓库的 更新记录.md 比上游旧时，在流程图上方提示去 Sync fork
-const UPSTREAM = "https://github.com/charlie-yus/thesis-workflow";
-const UP_LOG = "https://raw.githubusercontent.com/charlie-yus/thesis-workflow/main/%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95.md";
+// 流程更新提示：本仓库的 CHANGELOG.md 比上游旧时，在流程图上方提示去 Sync fork
+const UPSTREAM = "https://github.com/charlie-yus/Emergence";
+const UP_LOG = "https://raw.githubusercontent.com/charlie-yus/Emergence/main/CHANGELOG.md";
 const ver = (t) => (String(t).match(/^##\s+(\d{4}-\d{2}-\d{2})\.(\d+)/m) || []).slice(1);
 const newer = (a, b) => a.length && (!b.length || a[0] > b[0] || (a[0] === b[0] && +a[1] > +b[1]));
-if (REPO.toLowerCase() !== UPSTREAM) {
+if (REPO.toLowerCase() !== UPSTREAM.toLowerCase()) {
   const get = (u) => fetch(u, { cache: "no-store" }).then((r) => (r.ok ? r.text() : "")).catch(() => "");
-  Promise.all([get(`${encodeURI("更新记录.md")}?t=${Date.now()}`), get(UP_LOG)]).then(([mine, up]) => {
+  Promise.all([get(`${encodeURI("CHANGELOG.md")}?t=${Date.now()}`), get(UP_LOG)]).then(([mine, up]) => {
     const m = ver(mine), u = ver(up);
     if (!newer(u, m)) return;
     $(".flow").insertAdjacentHTML("beforebegin", `<a class="help-bar update-bar" href="${REPO || UPSTREAM}" target="_blank" rel="noopener"><b>流程有更新</b>新版本 ${esc(u.join("."))}：到你的 GitHub 仓库页点 Sync fork → Update branch</a>`);

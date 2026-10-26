@@ -1,19 +1,32 @@
-# 毕业论文工作流（牛马一号）
+# Emergence
+
+**Niuma One (牛马一号)** · An AI-guided workflow for undergraduate theses, from choosing a topic to the final defense.
+
+Fork this repository and hand it to your AI assistant. The AI reads `AGENTS.md`, asks you a few questions, helps you pick one of four routes (secondary-data empirical, survey empirical, survey diagnosis and strategy, case study), and then walks you through 18 steps one at a time. Progress is kept in `PROGRESS.md` and shown on a GitHub Pages progress page. When the workflow is updated upstream, your AI tells you and you sync with one click (**Sync fork**).
+
+The goal is to pass every milestone on time and get through the defense, not to aim for publication.
+
+- Example progress page: https://charlie-yus.github.io/Emergence/?file=workflow/progress-example-B1.md
+- The workflow itself is written in Chinese.
+
+---
+
+## 中文说明
 
 这个仓库是一份**写毕业论文的工作流**：从选题、找文献、做数据或问卷、写作、排版，到定稿和答辩，每一步都写清了谁来做、做到什么程度算过关。
 
-用法：你把自己的仓库交给 AI，AI 读完流程，和你商量走哪条路线，然后一步步带你做，同时把进度记在 `进度.md` 里。这个仓库还会生成一个网页，Charlie 和老师随时能打开看你的进度。
+用法：你把自己的仓库交给 AI，AI 读完流程，和你商量走哪条路线，然后一步步带你做，同时把进度记在 `PROGRESS.md` 里。这个仓库还会生成一个网页，Charlie 和老师随时能打开看你的进度。
 
 目标是**按时过学校的每个节点，顺利通过答辩**，不求最好。
 
-进度页做好之后长这样（示例）：https://charlie-yus.github.io/thesis-workflow/?file=流程/进度示例_B1.md
+进度页做好之后长这样（示例）：https://charlie-yus.github.io/Emergence/?file=workflow/progress-example-B1.md
 
 ---
 
 ## 一　部署（约 10 分钟，只做一次）
 
 1. **注册 GitHub**：打开 https://github.com 注册账号。用户名会出现在网址里，建议用拼音。
-2. **Fork 这个仓库**：打开 https://github.com/charlie-yus/thesis-workflow ，点右上角 **Fork** → **Create fork**。
+2. **Fork 这个仓库**：打开 https://github.com/charlie-yus/Emergence ，点右上角 **Fork** → **Create fork**。
    - 名字可以改成 `thesis`，也可以不改；
    - 用 Fork 而不是复制，以后 Charlie 更新流程时，你点一下 **Sync fork** 就能拿到新版本。
 3. **打开网页**：在你的新仓库里点 **Settings → Pages**，在 Build and deployment 下面设置：
@@ -25,15 +38,15 @@
 
 ## 二　开始：把仓库交给 AI
 
-推荐用能读 GitHub、能运行代码的 AI，例如 ChatGPT（Work 模式或 Codex）、Claude。各种 AI 的区别见 `资料/AI用法.md`。
+推荐用能读 GitHub、能运行代码的 AI，例如 ChatGPT（Work 模式或 Codex）、Claude。各种 AI 的区别见 `resources/using-ai.md`。
 
 每次开新对话，都先发这句话：
 
-> 请读我的 GitHub 仓库 https://github.com/你的用户名/仓库名 ，先读 AGENTS.md，再读 进度.md，按里面的规则带我做。
+> 请读我的 GitHub 仓库 https://github.com/你的用户名/仓库名 ，先读 AGENTS.md，再读 PROGRESS.md，按里面的规则带我做。
 
 网页上的 **接着做** 按钮会把这句话（已带上你的仓库链接）复制好。
 
-AI 打不开链接时：在仓库页面点绿色的 **Code → Download ZIP**，解压后把 `AGENTS.md`、`进度.md` 和 `流程/` 文件夹里的文件上传给它，再发同一句话。
+AI 打不开链接时：在仓库页面点绿色的 **Code → Download ZIP**，解压后把 `AGENTS.md`、`PROGRESS.md` 和 `workflow/` 文件夹里的文件上传给它，再发同一句话。
 
 **你什么都不用先填。**第一次对话时，AI 会主动问你怎么称呼、有没有题目（没有就帮你从学校选题表里挑）、老师有什么要求，然后和你商量走哪条路线：
 
@@ -44,12 +57,12 @@ AI 打不开链接时：在仓库页面点绿色的 **Code → Download ZIP**，
 | B1 调查诊断与对策 | 问卷加访谈找短板、提对策，例：“……短板与提升策略——以武汉为例” |
 | B2 案例分析与对策 | 选一到三家企业诊断问题、提对策，例：“某企业……策略分析” |
 
-路线定了以后，AI 会把你这篇论文的全部步骤写进 `进度.md`。
+路线定了以后，AI 会把你这篇论文的全部步骤写进 `PROGRESS.md`。
 
 ## 三　更新进度
 
-- **AI 能直接改仓库**（Codex、Claude Code 等）：每做完一步，它会自己更新 `进度.md`。
-- **AI 只能聊天**：它会给出新版 `进度.md` 的全文。你在仓库里点 `进度.md` → 铅笔图标 → 全选、粘贴 → **Commit changes**。
+- **AI 能直接改仓库**（Codex、Claude Code 等）：每做完一步，它会自己更新 `PROGRESS.md`。
+- **AI 只能聊天**：它会给出新版 `PROGRESS.md` 的全文。你在仓库里点 `PROGRESS.md` → 铅笔图标 → 全选、粘贴 → **Commit changes**。
 
 网页会自动跟着变，1–2 分钟后刷新就能看到。
 
@@ -59,18 +72,18 @@ AI 打不开链接时：在仓库页面点绿色的 **Code → Download ZIP**，
 2. 同一个问题试了三次还不行，或者遇到要人拍板的事：打开你的进度网页，点 **我卡住了**，把复制的话发给 AI，它会帮你填好求助；
 3. 再点 **发给 Charlie**，把复制的话（里面带你的进度页链接）发给 Charlie。Charlie 打开就能看到你卡在哪，会直接回复你。
 
-常见问题先看 `资料/常见问题.md`。
+常见问题先看 `resources/faq.md`。
 
 ## 五　流程更新了怎么办
 
-Charlie 会根据大家遇到的问题更新流程，每次更新都写在 `更新记录.md` 里。你的 AI 每次开始前会自己检查；有新版本时，你的进度网页上也会出现提示。
+Charlie 会根据大家遇到的问题更新流程，每次更新都写在 `CHANGELOG.md` 里。你的 AI 每次开始前会自己检查；有新版本时，你的进度网页上也会出现提示。
 
-同步方法：打开你的 GitHub 仓库页 → 点 **Sync fork** → **Update branch**。你的 `进度.md` 不会被改动。
+同步方法：打开你的 GitHub 仓库页 → 点 **Sync fork** → **Update branch**。你的 `PROGRESS.md` 不会被改动。
 
 ## 六　注意
 
 - **这个仓库是公开的。**不要放问卷原始数据、访谈录音、论文全文、学号、手机号。论文和数据放在你自己的电脑或网盘里。
-- 文献、数据、结果都不能编。规则见 `流程/00_总则.md`。
+- 文献、数据、结果都不能编。规则见 `workflow/00-principles.md`。
 - 学校系统的节点无论进度快慢，都必须按时提交。
 
 ## 目录
@@ -78,23 +91,24 @@ Charlie 会根据大家遇到的问题更新流程，每次更新都写在 `更�
 | 文件 | 内容 |
 |---|---|
 | `AGENTS.md` | 给 AI 的入口：检查更新、读什么、怎么带你、怎么更新进度 |
-| `更新记录.md` | 流程的版本和每次改了什么 |
-| `进度.md` | 你这篇论文的进度（网页显示的就是它） |
-| `流程/00_总则.md` | 分工、红线、每步怎么收尾、怎么求助 |
-| `流程/01_选路线.md` | 怎么定路线 |
-| `流程/路线*.md` | 四条路线的第 0–9 步 |
-| `流程/02_写作到答辩.md` | 各路线共用的第 10–17 步：写作、排版、AI 审稿、查重、修改、定稿、答辩 |
-| `资料/武汉学院资源.md` | 知网、CSMAR 等学校数据库怎么进 |
-| `资料/数据从哪来.md` | 哪些数据能直接下载、哪些要自己做、哪些可以买，以及怎么让 AI 处理 |
-| `资料/AI用法.md` | 用哪种 AI、怎么喂文献、提示词、写作 Skills 精华 |
-| `资料/老师要点.md` | 参考做法：王鸿鑫老师 10-22 会议要点（时间要求以你自己的老师为准） |
-| `资料/学校格式.md`、`资料/学校格式原件.doc` | 排版要求 |
-| `资料/常见问题.md` | 卡住了先看这里 |
+| `CHANGELOG.md` | 流程的版本和每次改了什么 |
+| `PROGRESS.md` | 你这篇论文的进度（网页显示的就是它） |
+| `workflow/00-principles.md` | 分工、红线、每步怎么收尾、怎么求助 |
+| `workflow/01-topic-and-route.md` | 怎么定路线 |
+| `workflow/route-*.md` | 四条路线的第 0–9 步 |
+| `workflow/02-writing-to-defense.md` | 各路线共用的第 10–17 步：写作、排版、AI 审稿、查重、修改、定稿、答辩 |
+| `resources/school-resources.md` | 知网、CSMAR 等学校数据库怎么进 |
+| `resources/data-sources.md` | 哪些数据能直接下载、哪些要自己做、哪些可以买，以及怎么让 AI 处理 |
+| `resources/using-ai.md` | 用哪种 AI、怎么喂文献、提示词、写作 Skills 精华 |
+| `resources/advisor-notes.md` | 参考做法：XX老师 10-22 会议要点（时间要求以你自己的老师为准） |
+| `resources/school-format.md`、`resources/school-format-original.doc` | 排版要求 |
+| `resources/faq.md` | 卡住了先看这里 |
 
 ---
 
 ## 给 Charlie：怎么发布更新
 
-1. 改 `流程/`、`资料/`、`AGENTS.md`、网页文件。**不要改 `进度.md`**，否则组员同步时会冲突。
-2. 在 `更新记录.md` 最上面加一条：`## 年-月-日.序号`，下面用一两行写改了什么。
+1. 改 `workflow/`、`resources/`、`AGENTS.md`、网页文件。**不要改 `PROGRESS.md`**，否则组员同步时会冲突。
+2. 在 `CHANGELOG.md` 最上面加一条：`## 年-月-日.序号`，下面用一两行写改了什么。
 3. 推送到 main。组员的 AI 下次开始时会读到；组员的进度网页会提示“流程有更新”。
+4. 组员的求助解决后，如果是大家都可能遇到的问题，写进 `resources/faq.md`，按上面的步骤发布。

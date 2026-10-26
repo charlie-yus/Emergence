@@ -1,4 +1,4 @@
-// 首页流程图：九宫格环形，中间是论文；八个圆圈由 progress.js 从 进度.md 的第 0–17 步归并而来
+// 首页流程图：九宫格环形，中间是论文；八个圆圈由 progress.js 从 PROGRESS.md 的第 0–17 步归并而来
 window.flowSVG = function (S, sheet = false) {
   const F = S.flow;
   const C = { x: 561, y: 398 };

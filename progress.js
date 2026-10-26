@@ -1,8 +1,8 @@
-// 读仓库里的 进度.md，整理成网页用的 window.STATUS，再加载 flow.js 和 app.js。无需构建。
-// ?file=流程/进度示例_B1.md 可预览其他进度文件（只允许仓库内的 .md）
+// 读仓库里的 PROGRESS.md，整理成网页用的 window.STATUS，再加载 flow.js 和 app.js。无需构建。
+// ?file=workflow/progress-example-B1.md 可预览其他进度文件（只允许仓库内的 .md）
 (function () {
   const want = new URLSearchParams(location.search).get("file");
-  const FILE = want && /^[^/.][^:]*\.md$/.test(want) && !want.includes("..") ? want : "进度.md";
+  const FILE = want && /^[^/.][^:]*\.md$/.test(want) && !want.includes("..") ? want : "PROGRESS.md";
 
   // 八个圆圈 ← 第 0–17 步
   const RANGES = [[0, 1], [2, 2], [3, 4], [5, 7], [8, 9], [10, 11], [12, 15], [16, 17]];
@@ -89,8 +89,8 @@
       const role = !whos.length ? "collab" : whos.every((w) => w === "人") ? "human" : whos.every((w) => /^AI/.test(w)) ? "ai" : "collab";
       const lastDone = ts.filter((t) => t.date).map((t) => t.date).sort().pop();
       let tags = ts.map((t) => [String(t.id) === stuckAt ? "卡" : t.done ? "人" : "待", cut(t.title, 7)]);
-      if (i === 0 && !confirmed) tags.unshift(["？", "老师确认"]);
       if (!ts.length) tags = [["待", code ? "按路线补齐" : "路线定后生成"]];
+      if (i === 0 && !confirmed) tags.unshift(["？", "老师确认"]);
       tags.sort((x, y) => "卡？待人".indexOf(x[0]) - "卡？待人".indexOf(y[0]));
       const headline = state === "now" ? `正在：${cur.title}` : state === "done" ? `已完成 ${ts.length} 步` : ts.length ? `待做：${ts.map((t) => t.title).join("、")}` : "等路线定了再展开";
       return {
