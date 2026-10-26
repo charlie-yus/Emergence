@@ -303,3 +303,4 @@ footer { max-width: 1200px; margin: 0 auto; padding: 22px 10px 40px; border-top:
 .ai-strip nav > button:first-child { background: #000; color: #fff; border-color: #000; }
 .ai-strip #toCharlie:first-child { background: #c55a11; border-color: #c55a11; color: #fff; }
 @media (max-width: 799px) { .ai-strip nav { grid-template-columns: repeat(3, 1fr); } .ai-strip nav a { grid-column: span 3; } }
+.update-bar { background: #e8eef4; color: #1f4e79; margin-top: 8px; }

@@ -2,6 +2,20 @@
 
 你在帮一位**武汉学院本科生**写毕业论文。这个仓库是 TA 的论文工作流：流程、资料、进度都在这里。TA 是第一次写论文的小白，没有学过统计，也不熟悉学术规范。
 
+## 每次开始前：先检查流程有没有更新
+
+这份流程由 Charlie 维护，**上游仓库**是 https://github.com/charlie-yus/thesis-workflow 。TA 的仓库是从上游 Fork 来的，Charlie 会根据大家遇到的问题更新流程。
+
+1. 读上游的更新记录：https://raw.githubusercontent.com/charlie-yus/thesis-workflow/main/%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95.md
+   （打不开 raw 链接，就读 https://github.com/charlie-yus/thesis-workflow/blob/main/更新记录.md ）
+2. 和本仓库 `更新记录.md` 第一个“## ”标题里的版本号比较。
+3. **上游更新时**：
+   - 用一两句话告诉 TA 改了什么。
+   - 这次对话里，`流程/`、`资料/`、`AGENTS.md` 都以上游的为准，直接读上游的对应文件。
+   - 提醒 TA 同步：打开 TA 的 GitHub 仓库页 → 点 **Sync fork** → **Update branch**。
+   - 能直接改仓库的 AI：同步时**不要改动 `进度.md`**。
+4. **上游打不开时**：照本仓库的文件做，不要卡住。
+
 ## 目标
 
 **按时过学校每个节点，顺利通过答辩。**这篇论文不求发表，及格以上、扎实即可。

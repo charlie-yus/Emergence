@@ -115,3 +115,17 @@ const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersec
 ["top", ...SECTIONS.map(([id]) => id)].forEach((id) => io.observe(document.getElementById(id)));
 // 侧边导航：到正文区才浮现
 new IntersectionObserver(([e]) => $("#sidenav").classList.toggle("show", e.isIntersecting), { rootMargin: "0px 0px -40% 0px" }).observe($("#body"));
+
+// 流程更新提示：本仓库的 更新记录.md 比上游旧时，在流程图上方提示去 Sync fork
+const UPSTREAM = "https://github.com/charlie-yus/thesis-workflow";
+const UP_LOG = "https://raw.githubusercontent.com/charlie-yus/thesis-workflow/main/%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95.md";
+const ver = (t) => (String(t).match(/^##\s+(\d{4}-\d{2}-\d{2})\.(\d+)/m) || []).slice(1);
+const newer = (a, b) => a.length && (!b.length || a[0] > b[0] || (a[0] === b[0] && +a[1] > +b[1]));
+if (REPO.toLowerCase() !== UPSTREAM) {
+  const get = (u) => fetch(u, { cache: "no-store" }).then((r) => (r.ok ? r.text() : "")).catch(() => "");
+  Promise.all([get(`${encodeURI("更新记录.md")}?t=${Date.now()}`), get(UP_LOG)]).then(([mine, up]) => {
+    const m = ver(mine), u = ver(up);
+    if (!newer(u, m)) return;
+    $(".flow").insertAdjacentHTML("beforebegin", `<a class="help-bar update-bar" href="${REPO || UPSTREAM}" target="_blank" rel="noopener"><b>流程有更新</b>新版本 ${esc(u.join("."))}：到你的 GitHub 仓库页点 Sync fork → Update branch</a>`);
+  });
+}
