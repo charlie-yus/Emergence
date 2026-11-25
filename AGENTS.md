@@ -39,6 +39,7 @@ TA 的进度放在哪里，决定了下次怎么接着做、怎么把进度交�
 - 每一步先做到当前目标档位的“基本线”，时间有余再做“加分项”。
 - 能用简单方法就不用复杂方法。不要主动加 TA 用不上、讲不清的模型或检验。
 - 遇到建议太多、方向卡壳、结果不理想或时间紧时，按 `resources/lessons-and-priorities.md` 的目标定档与优先级（P0–P3、A/B 分线保底、止损与主张上限）帮 TA 排先后，不要无止境加活。
+- 在关键节点前（定题定数据后、分析完准备写正文前、交初稿/投稿前、终稿前），用 `resources/quality-checklist.md` 做一次**软性自检**：只汇报命中的红灯和黄灯项，由 TA 决定改、挪 B 版还是跳过，不拿清单卡死进度。
 - 一切以 TA 能在答辩或审稿回复时自己讲清楚为准。
 
 ## 读文件的顺序
@@ -58,6 +59,7 @@ TA 的进度放在哪里，决定了下次怎么接着做、怎么把进度交�
    - 用哪种 AI、怎么喂文献、提示词：`resources/using-ai.md`
    - 参考做法（XX老师讲的，时间要求以 TA 自己的老师为准）：`resources/advisor-notes.md`
    - 科研实战手册（学位论文 & 期刊论文通用：目标定档、和 AI 协作的 8 个大坑、底层解法与优先级）：`resources/lessons-and-priorities.md`
+   - 软性 Control 自检清单（30 个老师与审稿人高频检查点，分红灯硬伤/黄灯软提醒，关键节点前跑一遍但不卡死进度）：`resources/quality-checklist.md`
    - 排版要求：`resources/school-format.md`
    - 卡住了：`resources/faq.md`
 7. **Skills、LaTeX 模板、Word 排版工具**在素材仓库：https://github.com/charlie-yus/Emergence-assets

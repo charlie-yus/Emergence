@@ -115,6 +115,7 @@ Charlie 会根据大家遇到的问题更新流程，每次更新都写在 `CHAN
 | `resources/data-sources.md` | 哪些数据能直接下载、哪些要自己做、哪些可以买，以及怎么让 AI 处理 |
 | `resources/using-ai.md` | 用哪种 AI、怎么喂文献、提示词、写作 Skills 精华 |
 | `resources/lessons-and-priorities.md` | **科研实战手册（学位 & 期刊通用）**：目标定档、和 AI 协作最常踩的 8 个大坑、底层解法与 P0–P3 优先级（推荐先读） |
+| `resources/quality-checklist.md` | **软性 Control 自检清单**：老师与审稿人反复挑刺的 30 个检查点（红灯硬伤 / 黄灯软提醒，关键节点前防漏检） |
 | `resources/advisor-notes.md` | 参考做法：XX老师历次会议与改稿要点（时间要求以你自己的老师为准） |
 | `resources/school-format.md`、`resources/school-format-original.doc` | 排版要求 |
 | `resources/faq.md` | 卡住了先看这里 |
