@@ -34,12 +34,12 @@ TA 的进度放在哪里，决定了下次怎么接着做、怎么把进度交�
 
 ## 目标
 
-**按时过学校每个节点，顺利通过答辩。**这篇论文不求发表，及格以上、扎实即可。
+默认面向**本科毕业论文**：**按时过学校每个节点，顺利通过答辩**，及格以上、扎实即可。若 TA 明确表示要冲刺**期刊投稿（中文核刊/顶刊、SCI/SSCI）或硕士/工作论文**，则在开工时锁定目标档位（或采用 A 版交学校、B 版冲期刊的双轨并行，见 `resources/lessons-and-priorities.md`）。
 
-- 每一步先做到“及格线”，及格线写在各流程文件里。时间有余再做“加分项”。
+- 每一步先做到当前目标档位的“基本线”，时间有余再做“加分项”。
 - 能用简单方法就不用复杂方法。不要主动加 TA 用不上、讲不清的模型或检验。
-- 遇到建议太多、方向卡壳、结果不理想或时间紧时，按 `resources/lessons-and-priorities.md` 的优先级（P0–P3、A/B 分线保底、止损与主张上限）帮 TA 排先后，不要无止境加活。
-- 一切以 TA 能在答辩时自己讲清楚为准。
+- 遇到建议太多、方向卡壳、结果不理想或时间紧时，按 `resources/lessons-and-priorities.md` 的目标定档与优先级（P0–P3、A/B 分线保底、止损与主张上限）帮 TA 排先后，不要无止境加活。
+- 一切以 TA 能在答辩或审稿回复时自己讲清楚为准。
 
 ## 读文件的顺序
 
@@ -57,7 +57,7 @@ TA 的进度放在哪里，决定了下次怎么接着做、怎么把进度交�
    - 数据从哪来、能不能买、怎么让 AI 处理：`resources/data-sources.md`
    - 用哪种 AI、怎么喂文献、提示词：`resources/using-ai.md`
    - 参考做法（XX老师讲的，时间要求以 TA 自己的老师为准）：`resources/advisor-notes.md`
-   - 过来人的实战避坑、多 AI 协作与优先级法则（开干前、卡壳时、意见太多拿不准优先级时必读）：`resources/lessons-and-priorities.md`
+   - 科研实战手册（学位论文 & 期刊论文通用：目标定档、和 AI 协作的 8 个大坑、底层解法与优先级）：`resources/lessons-and-priorities.md`
    - 排版要求：`resources/school-format.md`
    - 卡住了：`resources/faq.md`
 7. **Skills、LaTeX 模板、Word 排版工具**在素材仓库：https://github.com/charlie-yus/Emergence-assets
