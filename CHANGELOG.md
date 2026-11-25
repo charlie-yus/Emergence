@@ -2,6 +2,12 @@
 
 <!-- 最新的在最上面。版本号格式：年-月-日.序号。AI 和进度网页靠第一个“## ”标题判断版本，不要改这个格式。 -->
 
+## 2026-11-25.1
+- 补充 XX老师 10-27、11-12 后续指导与二次组会改稿要点（`resources/advisor-notes.md`）：假设展开写透与单主理论串联、正文做减法、单设“讨论”章、精简到 3–4 幅核心图与极简黑白框架图、学术表格规范与答辩备查。
+- 强化实证与防坑纪律（`workflow/00-principles.md`、`route-A1-secondary-data.md`、`resources/data-sources.md`）：新增 A/B 分线保底（交稿版冻结与深化版并行）、先锁规格与止损（拒绝数据窥探）、统一清洗底表防跨表漂移、付费数据库四步样表核验与慎买网店现成 DID 数据包。
+- 升级写作、审稿与答辩流程（`workflow/02-writing-to-defense.md`、`resources/using-ai.md`、`resources/faq.md`）：标杆范文拆解与防撞题查重、改文字锁死数字、外部 AI 审 PDF 先回源稿防抽字误报、深度去 AI 味（打破等长段落与单句成段）、新增提示词 11–14、补充高频答辩拷问与带电脑核查清单。
+- 同步更新排版规范（`resources/school-format.md` 及 `Emergence-assets/word-tools/layout-rules.md`）：docx 显式写入 Windows 通用字体名、变量定义表纵向合并单元格、核心回归表完整汇报控制变量、删去“作者自行整理”与无意义计量单位行、目录两级引导对齐。
+
 ## 2026-10-27.1
 - 三种存放方式：GitHub、本地文件夹、只用聊天。第一次对话时 AI 会问进度放在哪、下次怎么开始，并写进 PROGRESS.md。
 - 不用 GitHub 的同学：求助时把 AI 写好的那段话连同 PROGRESS.md 文件发给 Charlie。
