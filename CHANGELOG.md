@@ -2,6 +2,10 @@
 
 <!-- 最新的在最上面。版本号格式：年-月-日.序号。AI 和进度网页靠第一个“## ”标题判断版本，不要改这个格式。 -->
 
+## 2026-11-26.1
+- 新增按本流程 8 阶段＋00 协作底座拆分的**模块化科研工具库 `toolkit/`**（已脱敏去除全部本机路径与第三方版权原文，克隆即用）：包含总控导航 `toolkit/README.md`、9 张渐进折叠工具卡 `toolkit/stages/00`–`08`（涵盖 ClaimNov 查新、每条假设 1 页+ 六模块推演、打破年报词频 6 类新数据与 LLM 测量误差纠偏、交错/连续 DID 与 HonestDiD/内生性三件套、发布会原则反防御与遮住测试、去 AI 味与段长破壁、审稿盲排停手与答辩接招）、2 份方法精要速查卡 `toolkit/knowledge/`、60+ 经 GitHub API 实测核验的开源仓库总表 `toolkit/archives/github-repos-verified.md`，以及防冗余脚手架（单真相源 `registry/catalog.jsonl` + 零依赖校验/路由 CLI `scripts/toolkit_cli.py` + `INTAKE_PROTOCOL.md`）。
+- 引入 `W2-MVP` 探索期沙盒邪修分级（保留早期跑通 MVP、探测信号的 6 条高敏技巧并强制标注转正进入发表稿的前置条件；CLI 支持 `--strict` 一键切为严格发表模式），并同步在 `Emergence-assets/skills/README.md` 扩充经实测核验的进阶非 PPT 开源 Skills 选配表。
+
 ## 2026-11-25.4
 - 新增 `resources/quality-checklist.md`（软性 Control 自检清单）：整理导师历次组会与期刊审稿反复挑刺的 30 个检查点（C01–C30，覆盖选题数据、实证证据、假设结构、去 AI 腔、图表版面、交付答辩六大模块），按 🔴 红灯硬伤 / 🟡 黄灯软提醒分层，支持按学位或期刊目标档位一键自检、防漏检但不卡死进度，并接入 `AGENTS.md`、`README.md`、`workflow/00-principles.md` 与 `workflow/02-writing-to-defense.md`。
 

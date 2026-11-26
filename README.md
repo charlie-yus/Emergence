@@ -116,6 +116,7 @@ Charlie 会根据大家遇到的问题更新流程，每次更新都写在 `CHAN
 | `resources/using-ai.md` | 用哪种 AI、怎么喂文献、提示词、写作 Skills 精华 |
 | `resources/lessons-and-priorities.md` | **科研实战手册（学位 & 期刊通用）**：目标定档、和 AI 协作最常踩的 8 个大坑、底层解法与 P0–P3 优先级（推荐先读） |
 | `resources/quality-checklist.md` | **软性 Control 自检清单**：老师与审稿人反复挑刺的 30 个检查点（红灯硬伤 / 黄灯软提醒，关键节点前防漏检） |
+| `toolkit/README.md` | **科研工具库（全流程防冗余版）**：按 8 阶段拆分的折叠工具卡（`stages/`）、顶刊方法与因果速查（`knowledge/`）、60+ 实测核验开源仓库（`archives/`）、探索期 MVP 技巧与自动路由/体检 CLI（`scripts/toolkit_cli.py`） |
 | `resources/advisor-notes.md` | 参考做法：XX老师历次会议与改稿要点（时间要求以你自己的老师为准） |
 | `resources/school-format.md`、`resources/school-format-original.doc` | 排版要求 |
 | `resources/faq.md` | 卡住了先看这里 |

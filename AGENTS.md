@@ -60,6 +60,7 @@ TA 的进度放在哪里，决定了下次怎么接着做、怎么把进度交�
    - 参考做法（XX老师讲的，时间要求以 TA 自己的老师为准）：`resources/advisor-notes.md`
    - 科研实战手册（学位论文 & 期刊论文通用：目标定档、和 AI 协作的 8 个大坑、底层解法与优先级）：`resources/lessons-and-priorities.md`
    - 软性 Control 自检清单（30 个老师与审稿人高频检查点，分红灯硬伤/黄灯软提醒，关键节点前跑一遍但不卡死进度）：`resources/quality-checklist.md`
+   - 科研工具库（按本流程 8 阶段＋00底座拆分的带权重工具卡、LLM 测度/DID/内生性/去 AI 味实操配方、探索期 MVP 沙盒技巧及自动路由脚本）：`toolkit/README.md`（**只按需读当前阶段对应的 1 张 `toolkit/stages/0X-*.md`，不要全库加载**）
    - 排版要求：`resources/school-format.md`
    - 卡住了：`resources/faq.md`
 7. **Skills、LaTeX 模板、Word 排版工具**在素材仓库：https://github.com/charlie-yus/Emergence-assets
